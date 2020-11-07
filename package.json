@@ -1,0 +1,14 @@
+{
+  "name": "@xyToki/asset-loader",
+  "version": "0.0.1",
+  "description": "A webpack loader that catches all incoming assets, preloads it when needed, and replace the url to blob: url using @vue/reactive.",
+  "main": "index.js",
+  "repository": "https://github.com/xytoki/assetLoader",
+  "author": "xyToki",
+  "license": "MIT",
+  "dependencies": {
+    "@vue/reactivity": "^3.0.2",
+    "flyio": "^0.6.14"
+  },
+  "devDependencies": {}
+}
