@@ -50,7 +50,7 @@ export function push(url){
     reactiveObject.url = computedUrl;
 
     store[url] = reactiveObject;
-    unloaded.push(reactiveObject);
+    unloaded.push(url);
 
     if(config.isDev){
         let c = ["[AssetLoader]","PUSH",url];
@@ -77,7 +77,7 @@ export async function loadOne(obj,cb){
         });
     }
     obj.loaded = true;
-    unloaded.filter((o)=>o.currUrl!=obj.currUrl)
+    unloaded.splice(unloaded.indexOf(obj.currUrl),1)
     if(cb)cb(obj);
     if(config.isDev){
         console.log("[AssetLoader]","LOAD",obj.currUrl);
@@ -88,15 +88,20 @@ export async function ensure(progress){
     let prg = 0;
     progress = progress||function(){};
     let pms = [];
-    for(let i of unloaded){
-        pms.push(loadOne(i,function(){
+    let loadList = [...unloaded];
+    for(let i of loadList){
+        pms.push(loadOne(store[i],function(){
             prg++;
-            console.log("[AssetLoader]","PROG",`${prg}/${len}`);
+            if(config.isDev){
+                console.log("[AssetLoader]","PROG",`${prg}/${len}`);
+            }
             progress(prg,len);
         }))
     }
     await Promise.all(pms);
-    console.log("[AssetLoader]","ENSURE");
+    if(config.isDev){
+        console.log("[AssetLoader]","ENSURE");
+    }
 }
 export function asset(url){
     return store[url];
