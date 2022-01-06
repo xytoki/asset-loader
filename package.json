@@ -1,14 +1,20 @@
 {
-  "name": "@xytoki/asset-loader",
-  "version": "0.0.2",
-  "description": "A webpack loader that catches all incoming assets, preloads it when needed, and replace the url to blob: url using @vue/reactive.",
-  "main": "runtime.js",
-  "repository": "https://github.com/xytoki/assetLoader",
-  "author": "xyToki",
-  "license": "MIT",
-  "dependencies": {
-    "@vue/reactivity": "^3.0.2",
-    "flyio": "^0.6.14"
-  },
-  "devDependencies": {}
+    "name": "@xytoki/asset-loader",
+    "version": "0.1.0",
+    "description": "A webpack loader that catches all incoming assets, preloads it when needed, and replace the url to blob: url using @vue/reactive.",
+    "main": "dist/runtime.js",
+    "repository": "https://github.com/xytoki/assetLoader",
+    "author": "xyToki",
+    "license": "MIT",
+    "dependencies": {
+        "eventemitter3": "^4.0.7"
+    },
+    "scripts": {
+        "build": "tsc"
+    },
+    "devDependencies": {
+        "@types/node": "^17.0.8",
+        "@types/webpack-env": "^1.16.3",
+        "typescript": "^4.5.4"
+    }
 }
