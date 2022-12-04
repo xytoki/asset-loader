@@ -1,0 +1,9 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "module": "CommonJS",
+        "declarationDir": "dist",
+        "outDir": "dist"
+    },
+    "include": ["src/vite", "src/webpack"]
+}

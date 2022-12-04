@@ -1,0 +1,9 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "module": "ES2015",
+        "declarationDir": "dist/runtime",
+        "outDir": "dist/runtime"
+    },
+    "include": ["src/runtime"]
+}
