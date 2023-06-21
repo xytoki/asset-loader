@@ -95,20 +95,9 @@ export class Asset extends String {
         if (this.loaded) {
             return
         }
-        const isDataUri = this.originalUrl.startsWith('data:')
-        if (isDataUri) {
-            this.blob = loadDataURI(this.originalUrl)
-            return
-        } else {
-            const res = await fetch(this.originalUrl)
-            if (res.ok) {
-                this.blob = await res.blob()
-            } else {
-                throw new Error(`${res.status} ${res.statusText}`)
-            }
-        }
-        this.blobUrl = URL.createObjectURL(this.blob)
-        if (this.blob.type.startsWith('image/')) {
+        await this.fetch()
+        this.blobUrl = URL.createObjectURL(this.blob as Blob)
+        if ((this.blob as Blob).type.startsWith('image/')) {
             await new Promise((resolve) => {
                 this.imageElement.onload = resolve
                 this.imageElement.src = this.blobUrl as string
@@ -117,6 +106,21 @@ export class Asset extends String {
         await this.customLoader(this)
         this.loaded = true
         this._promise.resolve(this.blobUrl)
+    }
+    
+    async fetch() {
+        const isDataUri = this.originalUrl.startsWith('data:');
+        if (isDataUri) {
+            this.blob = loadDataURI(this.originalUrl);
+            return;
+        } else {
+            const res = await fetch(this.originalUrl);
+            if (res.ok) {
+                this.blob = await res.blob();
+            } else {
+                throw new Error(`${res.status} ${res.statusText}`);
+            }
+        }
     }
 }
 
